@@ -43,8 +43,10 @@ public class UserRegController  {
             String username = tf_username.getText();
            
             String password = pf_password.getText();
-            database.registerUser(username,password);
-            
+            //Database database = new Database("D:\\Hendrik\\Onedrive\\HTW\\SS 18\\VT\\TicTacToeGuijdbc:sqlite:sqlite.db");
+            Database database = (Database) SqliteConnection.Connector();
+            if(database.registerUser(username,password));
+                backbutton(event);
         }catch (Exception ex) {}
 }
 

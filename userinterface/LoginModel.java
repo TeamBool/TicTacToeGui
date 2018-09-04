@@ -10,7 +10,7 @@ private Connection conection;
   public LoginModel () {
    conection = SqliteConnection.Connector();
    if (conection == null) {
-   System.out.println("Verbindung steht");
+   System.out.println("Verbindung steht nicht!");
     System.exit(1);}
   }
   
