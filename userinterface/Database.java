@@ -4,8 +4,9 @@
  */
 
 //package de.htwsaar.tictactoe;
-package userinterface;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.management.InstanceNotFoundException;
 
@@ -48,29 +49,6 @@ public class Database {
                 result[0] = rs.getString("ID");
                 result[1] = rs.getString("Username");
                 result[2] = rs.getString("Password");
-            }
-        } finally {
-            if(stmt != null) stmt.close();
-        }
-        return result;
-    }
-
-    public String[] querryGame(int gameID) throws SQLException {
-        String SQL = "SELECT * FROM activeGames where gameID = '" + gameID + "'";
-        Statement stmt = null;
-        String[] result = new String[5];
-
-        try {
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(SQL);
-            
-            // Iterate through the data in the result set and display it.
-            while (rs.next()) {
-                result[0] = rs.getString("gameID");
-                result[1] = rs.getString("userX");
-                result[2] = rs.getString("userO");
-                result[3] = rs.getString("status");
-                result[4] = rs.getString("turn");
             }
         } finally {
             if(stmt != null) stmt.close();
@@ -131,6 +109,63 @@ public class Database {
         }
     }
 
+    public ArrayList<ActiveGame> querryGame(int gameID) throws SQLException {
+        String SQL = "SELECT * FROM activeGames where gameID = '" + gameID + "'";
+        Statement stmt = null;
+        ArrayList<ActiveGame> result = new ArrayList<ActiveGame>();
+
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            
+            // Iterate through the data in the result set and display it.
+            while (rs.next()) {
+                result.add(new ActiveGame(rs.getInt("gameID"), rs.getString("status"), rs.getInt("userX"), rs.getInt("userO"), rs.getString("turn")));
+            }
+        } finally {
+            if(stmt != null) stmt.close();
+        }
+        return result;
+    }
+
+    public void insertIntoHistory(int gameID, String gameState, int winner, int loser, boolean tie) throws SQLException{
+        PreparedStatement stmt2 = null;
+        try {
+            stmt2 = connection.prepareStatement("INSERT INTO history(gameID, status, winner, loser, tie) VALUES (?, ?, ?, ?, ?)");
+            stmt2.setInt(1, gameID);
+            stmt2.setString(2, gameState);
+            stmt2.setInt(3, winner);
+            stmt2.setInt(4, loser);
+            if(tie) {
+                stmt2.setInt(5, 1);
+            } else {
+                stmt2.setInt(5, 0);
+            }
+            stmt2.executeUpdate();
+        } finally {
+            if(stmt2 != null) stmt2.close();
+        }
+    }
+
+    public ArrayList<History> querryHistory(int userID) throws SQLException {
+        String SQL = "SELECT * FROM history where winner OR loser = '" + userID + "'";
+        Statement stmt = null;
+        ArrayList<History> result = new ArrayList<History>(); 
+
+        try {
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            
+            // Iterate through the data in the result set and display it.
+            while (rs.next()) {
+                result.add(new History(rs.getInt("gameID"), rs.getString("status"), rs.getInt("winner"), rs.getInt("loser"), rs.getInt("tie")));
+            }
+        } finally {
+            if(stmt != null) stmt.close();
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         try{
             Database db = new Database("jdbc:sqlite:sqlite.db");
@@ -151,11 +186,26 @@ public class Database {
                 System.out.println(result[i]);
             }
             
-            db.insertActiveGame(1, "--------x", 1, 2, "o");
-            result = db.querryGame(1);
-            for(int i = 0; i < result.length; i++) {
-                System.out.println(result[i]);
+            ArrayList<ActiveGame> theList2 = db.querryGame(0);
+            System.out.println("----------ACTIVE GAMES----------");
+            for(ActiveGame x : theList2) {
+                System.out.println("GameID: " + x.gameID);
+                System.out.println("UserX: " + x.userX);
+                System.out.println("UserO: " + x.userO);
+                System.out.println("Status: " + x.status);
+                System.out.println("Turn: " + x.turn);
             }
+
+            System.out.println("----------HISTORY----------");
+            ArrayList<History> theList = db.querryHistory(1);
+            for(History x : theList) {
+                System.out.println("GameID: " + x.gameID);
+                System.out.println("Winner: " + x.winner);
+                System.out.println("Loser: " + x.loser);
+                System.out.println("Tie: " + x.tie);
+                System.out.println("Status: " + x.status);
+            }
+
             db.disconnect();
 
         } catch(Exception e) {
