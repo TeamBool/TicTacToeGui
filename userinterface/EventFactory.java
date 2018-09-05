@@ -1,9 +1,9 @@
 package userinterface;
 
 public interface EventFactory<T> {
-    T createRegistered();
+    T createRegister();
 
-    T createRegistrationAborted();
+    T createRegistrationAbort();
 
     T createActNow(int var1);
 
@@ -11,13 +11,13 @@ public interface EventFactory<T> {
 
     T createWinner(String var1);
 
-    T createMoved(int x, int y, String tile, String owner);
+    T createMove(int x, int y, String tile, String owner);
 
     T createNewGame();
 
-    T createGameFinished(int id, String name);
+    T createGameFinish(int id, String name);
 
-    T createGamePaused(int id);
+    T createGamePause(int id);
 
     T createChat(String message);
 

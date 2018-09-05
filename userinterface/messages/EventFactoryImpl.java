@@ -14,12 +14,12 @@ public class EventFactoryImpl implements EventFactory<Event> {
 
 
     @Override
-    public Event createRegistered() {
+    public Event createRegister() {
         return null;
     }
 
     @Override
-    public Event createRegistrationAborted() {
+    public Event createRegistrationAbort() {
         return null;
     }
 
@@ -39,8 +39,8 @@ public class EventFactoryImpl implements EventFactory<Event> {
     }
 
     @Override
-    public Event createMoved(int x, int y, String tile, String name) {
-        return new Moved(x, y, tile, name);
+    public Event createMove(int x, int y, String tile, String name) {
+        return new Move(x, y, tile, name);
     }
 
     @Override
@@ -49,13 +49,13 @@ public class EventFactoryImpl implements EventFactory<Event> {
     }
 
     @Override
-    public Event createGameFinished(int id, String name) {
-        return new GameFinished(id, name);
+    public Event createGameFinish(int id, String name) {
+        return new GameFinish(id, name);
     }
 
     @Override
-    public Event createGamePaused(int id) {
-        return new GamePaused(id);
+    public Event createGamePause(int id) {
+        return new GamePause(id);
     }
 
     @Override

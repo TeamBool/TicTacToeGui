@@ -7,7 +7,7 @@ import userinterface.model.OTile;
 import userinterface.model.Tile;
 import userinterface.model.XTile;
 
-public class Moved implements Event {
+public class Move implements Event {
 
     private int x;
     private int y;
@@ -15,7 +15,7 @@ public class Moved implements Event {
     private String name = "";
     private Tile t;
 
-    public Moved(int x, int y, String tile, String name){this.x = x;
+    public Move(int x, int y, String tile, String name){this.x = x;
     this.y = y;
     this.tile = tile;
     this.name = name;

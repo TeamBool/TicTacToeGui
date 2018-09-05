@@ -4,7 +4,7 @@ import userinterface.connection.ClientConnection;
 import userinterface.model.Game;
 
 
-public class GamePaused implements Event{
+public class GamePause implements Event{
 
     //Fields
     private int gameID;
@@ -12,7 +12,7 @@ public class GamePaused implements Event{
     /**
      * @param gameID
      */
-    public GamePaused(int gameID) {
+    public GamePause(int gameID) {
         this.gameID = gameID;
     }
 

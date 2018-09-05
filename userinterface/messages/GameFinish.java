@@ -4,11 +4,11 @@ package userinterface.messages;
 import userinterface.connection.ClientConnection;
 import userinterface.model.Game;
 
-public class GameFinished implements Event {
+public class GameFinish implements Event {
 
     private String teamName = "";
 
-    public GameFinished(int id, String NameWnr){
+    public GameFinish(int id, String NameWnr){
         this.teamName = NameWnr;
     }
 

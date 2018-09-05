@@ -83,27 +83,42 @@ public class ServerConnection<C> implements AutoCloseable {
 
             try {
                 int type = this.unpacker.unpackInt();
-                int y;
+                int value;
+                String teamName;
+                String message;
                 int x;
-                switch(type) {
+                int y;
+                String tile;
+                switch (type) {
                     case 0:
-                        //return this.commandFactory.createRegister(commId(identity));
+                        break;
                     case 1:
-                        return this.commandFactory.createWatch(commId(identity));
+                        break;
                     case 2:
-                      // return this.commandFactory.createMove(commId(identity), x, y);
+                        x = this.unpacker.unpackInt();
+                        y = this.unpacker.unpackInt();
+                        tile = this.unpacker.unpackString();
+                        teamName = this.unpacker.unpackString();
+                        return this.commandFactory.createMoved(commId(identity), x,y,tile, teamName);
                     case 3:
-                        return this.commandFactory.createGame(commId(identity));
+                        return this.commandFactory.createNewGame(commId(identity));
                     case 4:
-                        return this.commandFactory.gameFinished(commId(identity));
+                        value = this.unpacker.unpackInt();
+                        message = this.unpacker.unpackString();
+                        return this.commandFactory.createGameFinished(commId(identity), value, message);
                     case 5:
-                        return this.commandFactory.gamePaused(commId(identity));
+                        value = this.unpacker.unpackInt();
+                        return this.commandFactory.createGamePaused(commId(identity), value);
                     case 6:
-                        return this.commandFactory.createDoneActing(commId(identity));
                     case 7:
-                        return this.commandFactory.lostPassword(commId(identity));
+                        break;
                     case 8:
-                        return this.commandFactory.chat(commId(identity));
+                        message = this.unpacker.unpackString();
+                        return this.commandFactory.createChat(commId(identity), message);
+                    case 9:
+                        teamName = this.unpacker.unpackString();
+                        tile = this.unpacker.unpackString();
+                        return this.commandFactory.createPlayer(commId(identity), teamName, tile);
                     default:
                         throw new CommException("Unbekannter Commandtyp!");
                 }
@@ -111,6 +126,7 @@ public class ServerConnection<C> implements AutoCloseable {
                 throw new CommException("Fehler beim Lesen des nächsten Commands!", var7);
             }
         }
+        return null;
     }
 
     public final void sendRegistered(int commId, int playerId, String name) {
@@ -245,12 +261,12 @@ public class ServerConnection<C> implements AutoCloseable {
         static final int WATCH = 1;
         static final int MOVE = 2;
         static final int CREATE_GAME = 3;
-        static final int GAME_FINISHED = 4;
-        static final int GAME_PAUSED = 5;
+        static final int GAME_FINISH = 4;
+        static final int GAME_PAUS = 5;
         static final int DONE = 6;
         static final int LOST_PW = 7;
         static final int CHAT = 8;
-
+        static final int NEWPLAYER = 9;
         private Commands() {
         }
     }
