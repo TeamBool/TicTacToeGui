@@ -9,10 +9,15 @@ public class Game {
     private int size = 3;
     private ArrayList<Player> players = new ArrayList<Player>();
     private boolean running = false;
+    private boolean paused = false;
 
     public Game(){
         //TODO: get GameID form DB
         this.id = 1;
+    }
+
+    public Game(int id){
+        this.id = id;
     }
 
     public boolean startGame(){
@@ -82,16 +87,23 @@ public class Game {
         return this.players;
     }
 
+    public int getId(){
+        return this.id;
+    }
+
     public void setPaused() {
-        //TODO
+        this.paused = true;
+    }
+
+    public void setUnPuase(){
+        this.paused = false;
     }
 
     public boolean isPaused() {
-        //TODO
-        return false;
+        return this.paused;
     }
 
     public void setRunning(boolean b) {
-        //TODO
+        running = b;
     }
 }

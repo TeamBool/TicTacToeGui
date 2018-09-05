@@ -40,22 +40,22 @@ public class CommandFactoryImpl implements CommandFactory<Command> {
     }
 
     @Override
-    public Command createMove(int var1, int var2, int var3) {
+    public Command createMoved(int c, int var1, int var2, String n, String m) {
         return null;
     }
 
     @Override
-    public Command createGame(int var1) {
+    public Command createNewGame(int c) {
         return null;
     }
 
     @Override
-    public Command gameFinished(int var1) {
+    public Command createGameFinished(int c, int var1, String msg) {
         return null;
     }
 
     @Override
-    public Command gamePaused(int var1) {
+    public Command createGamePaused(int c, int var1) {
         return null;
     }
 
@@ -63,9 +63,16 @@ public class CommandFactoryImpl implements CommandFactory<Command> {
     public Command lostPassword(int var1) {
         return null;
     }
+
     @Override
-    public Command chat(int var1) {
+    public Command createChat(int c, String msg) {
         return null;
     }
+
+    @Override
+    public Command createPlayer(int c, String n, String t) {
+        return null;
+    }
+
 
 }

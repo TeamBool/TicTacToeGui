@@ -105,12 +105,12 @@ public class TicTacToemultiController {
 	
 	@FXML
     public void handleSquareOneClick(MouseEvent event) {
-		Userinterface.clientConnection.sendMove(0,0, tile);
+		Userinterface.clientConnection.sendMove(0,0, tile, Userinterface.playerName);
     }
 
     @FXML
     public void handleSquareTwoClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(0,1, tile);
+        Userinterface.clientConnection.sendMove(0,1, tile, Userinterface.playerName);
 		//if(move == o) {
 		//	this.handleSquareClick(2);
         //}else {
@@ -122,40 +122,40 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareThreeClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(0,2, tile);
+        Userinterface.clientConnection.sendMove(0,2, tile, Userinterface.playerName);
         
     }
 
     @FXML
     public void handleSquareFourClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(1,0, tile);
+        Userinterface.clientConnection.sendMove(1,0, tile, Userinterface.playerName);
         
         
     }
 
     @FXML
     public void handleSquareFiveClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(1,1, tile);
+        Userinterface.clientConnection.sendMove(1,1, tile, Userinterface.playerName);
     }
 
     @FXML
     public void handleSquareSixClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(1,2, tile);
+        Userinterface.clientConnection.sendMove(1,2, tile, Userinterface.playerName);
     }
 
     @FXML
     public void handleSquareSevenClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(2,0, tile);
+        Userinterface.clientConnection.sendMove(2,0, tile, Userinterface.playerName);
     }
 
     @FXML
     public void handleSquareEightClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(2,1, tile);
+        Userinterface.clientConnection.sendMove(2,1, tile, Userinterface.playerName);
     }
 
     @FXML
     public void handleSquareNineClick(MouseEvent event) {
-        Userinterface.clientConnection.sendMove(2,2, tile);
+        Userinterface.clientConnection.sendMove(2,2, tile, Userinterface.playerName);
     }
 
     public void handleSquareClick(int squareNumber) {
