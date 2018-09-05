@@ -26,13 +26,15 @@ private Connection conection;
    public boolean isLogin(String user,String pass) throws SQLException {
 	   PreparedStatement preparedStatement = null;
 	   ResultSet resultSet = null;
-	   String query = "select * from user where username = ? and password = ? ";
+	   String query = "select id from user where username = ? and password = ? ";
 	   try {
 		   preparedStatement = conection.prepareStatement(query);
 		   preparedStatement.setString(1, user);
 		   preparedStatement.setString(2, pass);
 		   resultSet = preparedStatement.executeQuery();
 		   if(resultSet.next()) {
+		   		Userinterface.playerName = user;
+		   		Userinterface.playerID = resultSet.getInt(0);
 			   return true;
 		   }
 		   else {

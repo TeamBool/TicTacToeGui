@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import userinterface.connection.ClientConnection;
 
 public class TicTacToemultiController {
 
@@ -100,7 +101,7 @@ public class TicTacToemultiController {
 	
 	@FXML
     public void handleSquareOneClick(MouseEvent event) {
-		private int move = ClientConnection.sendMove();
+		int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(1);
         }else {
@@ -110,7 +111,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareTwoClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(2);
         }else {
@@ -122,7 +123,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareThreeClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(3);
         }else {
@@ -133,7 +134,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareFourClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(4);
         }else {
@@ -145,7 +146,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareFiveClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(5);
         }else {
@@ -155,7 +156,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareSixClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(6);
         }else {
@@ -165,7 +166,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareSevenClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(7);
         }else {
@@ -175,7 +176,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareEightClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(8);
         }else {
@@ -185,7 +186,7 @@ public class TicTacToemultiController {
 
     @FXML
     public void handleSquareNineClick(MouseEvent event) {
-    	private int move = ClientConnection.sendMove();
+    	int move = ClientConnection.sendMove();
 		if(move == o) {
 			this.handleSquareClick(9);
         }else {
@@ -434,19 +435,7 @@ public class TicTacToemultiController {
 
                 return found == true;
             }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	 public void backbutton2(ActionEvent event)throws Exception {
 	       

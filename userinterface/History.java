@@ -1,4 +1,4 @@
-//package de.htwsaar.tictactoe;
+package userinterface;
 
 public class History {
     public final int gameID;

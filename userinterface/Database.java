@@ -1,4 +1,4 @@
-/*
+package userinterface;/*
    *   Handles database connection and queries
    *   @version 0.0.1
  */
