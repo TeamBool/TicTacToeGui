@@ -22,11 +22,11 @@ public class Database {
         DB_HOST = host;
     }
 
-    private void connectLite() throws SQLException {
+    public void connectLite() throws SQLException {
         connection = DriverManager.getConnection(DB_HOST);
     }
 
-    private void disconnect() throws SQLException {
+    public void disconnect() throws SQLException {
         if(!connection.isClosed()) {
             connection.close();
             if(connection.isClosed()) System.out.println("Connection closed!");
@@ -92,6 +92,22 @@ public class Database {
            if(stmt != null) stmt.close();
            if(stmt2 != null) stmt2.close();
        }
+    }
+
+    public boolean loginUser(String username, String password) throws SQLException {
+        Statement stmt = null;
+        try{
+            stmt = connection.createStatement();
+            String query = "SELECT * FROM users where Username = '" + username + "' AND Password = '" + password + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next())
+                return true;
+            else
+                return false;
+        }
+        finally {
+            if(stmt != null) stmt.close();
+        }
     }
 
     public void insertActiveGame(int gameID, String gameState, int userX, int userO, String turn) throws SQLException{

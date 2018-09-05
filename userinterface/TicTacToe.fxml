@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="600.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.TicTacToeController">
+<AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="600.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.TicTacToeController">
    <children>
       <Rectangle fx:id="SquareOne" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" layoutX="112.0" layoutY="96.0" onMouseClicked="#handleSquareOneClick" stroke="WHITE" strokeType="INSIDE" width="120.0" />
       <Rectangle fx:id="SquareTwo" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" layoutX="241.0" layoutY="96.0" onMouseClicked="#handleSquareTwoClick" stroke="WHITE" strokeType="INSIDE" width="120.0" />
@@ -72,9 +72,9 @@
             <Font size="88.0" />
          </font>
       </Label>
-      <Label fx:id="lblMessages" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="536.0" prefHeight="20.0" prefWidth="300.0">
+      <Label fx:id="lblMessages" alignment="CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="31.0" prefHeight="57.0" prefWidth="478.0" textFill="RED">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <Button fx:id="btnReset" layoutX="264.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleResetButton" stylesheets="@styles/button.css" text="Reset" />

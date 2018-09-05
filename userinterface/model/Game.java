@@ -12,6 +12,7 @@ public class Game {
 
     public Game(){
         //TODO: get GameID form DB
+        this.id = 1;
     }
 
     public boolean startGame(){

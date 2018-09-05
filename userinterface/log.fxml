@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.LoginController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.LoginController">
    <children>
       <Button layoutX="108.0" layoutY="303.0" mnemonicParsing="false" onAction="#Login" prefHeight="37.0" prefWidth="109.0" stylesheets="@styles/button.css" text="Login" />
       <PasswordField fx:id="txtpassword" layoutX="43.0" layoutY="245.0" prefHeight="27.0" prefWidth="238.0" style="-fx-background-color: #B8B8B8;">
@@ -60,7 +60,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Label fx:id="isConnected" alignment="CENTER" layoutX="300.0" layoutY="75.0" prefHeight="37.0" prefWidth="238.0" textAlignment="RIGHT" textFill="#8d0404">
+      <Label fx:id="isConnected" alignment="CENTER" layoutX="300.0" layoutY="75.0" prefHeight="218.0" prefWidth="289.0" textAlignment="RIGHT" textFill="#8d0404">
          <font>
             <Font size="20.0" />
          </font>

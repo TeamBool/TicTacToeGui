@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.UserRegController">
+<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #404040;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.UserRegController">
    <children>
       <Label alignment="CENTER" layoutX="140.0" layoutY="102.0" prefHeight="46.0" prefWidth="108.0" text="Username" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -51,5 +51,10 @@
       </Label>
       <TextField layoutX="88.0" layoutY="75.0" prefHeight="27.0" prefWidth="212.0" />
       <Button layoutX="122.0" layoutY="276.0" mnemonicParsing="false" onAction="#signup" prefHeight="40.0" prefWidth="145.0" stylesheets="@styles/button.css" text="Registration" />
+      <Label fx:id="label" layoutX="328.0" layoutY="68.0" prefHeight="200.0" prefWidth="251.0" textFill="RED">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

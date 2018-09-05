@@ -1,6 +1,7 @@
 package userinterface;
 
 
+import javafx.scene.control.Label;
 import userinterface.SqliteConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -26,12 +27,14 @@ public class UserRegController  {
     @FXML
     private TextField tf_username;
 
-    @FXML
-    private TextField tf_email;
+    //@FXML
+    //private TextField tf_email;
 
     @FXML
     private PasswordField pf_password;
 
+    @FXML
+    private Label label;
 
    
     @FXML
@@ -43,16 +46,19 @@ public class UserRegController  {
             String username = tf_username.getText();
            
             String password = pf_password.getText();
-            //Database database = new Database("D:\\Hendrik\\Onedrive\\HTW\\SS 18\\VT\\TicTacToeGuijdbc:sqlite:sqlite.db");
-            Database database = (Database) SqliteConnection.Connector();
-            if(database.registerUser(username,password));
+            Database database = new Database("jdbc:sqlite:sqlite.db");
+            database.connectLite();
+            if(!database.registerUser(username,password)) {
                 backbutton(event);
+                label.setText("Erfolgreich!");
+            } else
+                    label.setText("Fehler!");
         }catch (Exception ex) {}
 }
 
    
     public void initialize(URL location, ResourceBundle resources) {
-
+        label.setText("Test!");
     }
     
     public void backbutton(ActionEvent event)throws Exception {

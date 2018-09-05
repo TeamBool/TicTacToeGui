@@ -12,6 +12,11 @@ public class Field {
     {
         this.size = size;
         gameField = new Tile[size][size];
+        for(int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                gameField[i][j] = new EmptyTile(i,j);
+            }
+        }
         this.players = players;
         this.winCondition = players.size() + 1;
     }
@@ -20,7 +25,8 @@ public class Field {
         if(gameField[tile.getPos().getX()][tile.getPos().getY()].getType() == Tile.TILE_TYPE.EMPTY){
             return true;
             //current player == tile.owner?
-        } else {return false;}
+        } else {
+            return false;}
     }
 
     public void setTile(Tile tile){

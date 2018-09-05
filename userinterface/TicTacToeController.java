@@ -208,14 +208,20 @@ public class TicTacToeController implements Initializable {
                 this.endGame();
             } else {
                 this.playRandomMove();
-
-                if(this.checkVictory()) {
-                    this.endGame();
-                }
             }
         } else if(this.filledSquaresCounter >= 9) {
             this.tie = true;
             this.endGame();
+        }
+        if(this.game.hasWinner()){
+            this.allowMoves = false;
+            this.lblMessages.setText("Game over!");
+            return;
+        }
+        if(this.filledSquaresCounter == 9 && this.allowMoves){
+            this.allowMoves = false;
+            this.lblMessages.setText("It is a tie!");
+            return;
         }
     }
 
@@ -494,6 +500,10 @@ public class TicTacToeController implements Initializable {
         this.filledSquaresCounter = 0;
         this.filledCirclesCounter = 0;
         this.filledXCounter = 0;
+        this.game = new Game();
+        this.game.addPlayer("Player", "X");
+        this.game.addPlayer("AI", "O");
+        this.game.startGame();
     }
 
     @Override
@@ -501,6 +511,7 @@ public class TicTacToeController implements Initializable {
         // TODO
         this.game.addPlayer("Player", "X");
         this.game.addPlayer("AI", "O");
+        this.game.startGame();
     }    
     public void backbutton2(ActionEvent event)throws Exception {
        
