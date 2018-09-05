@@ -87,11 +87,11 @@ public class ServerConnection<C> implements AutoCloseable {
                 int x;
                 switch(type) {
                     case 0:
-                        return this.commandFactory.createRegister(commId(identity));
+                        //return this.commandFactory.createRegister(commId(identity));
                     case 1:
                         return this.commandFactory.createWatch(commId(identity));
                     case 2:
-                        return this.commandFactory.createMove(commId(identity), x, y);
+                      // return this.commandFactory.createMove(commId(identity), x, y);
                     case 3:
                         return this.commandFactory.createGame(commId(identity));
                     case 4:

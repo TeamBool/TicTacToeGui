@@ -73,6 +73,14 @@ public class Game {
         this.addPlayer(new Player(player, tile_type));
     }
 
+    public Field getField(){
+        return this.field;
+    }
+
+    public ArrayList getPlayerList(){
+        return this.players;
+    }
+
     public void setPaused() {
         //TODO
     }

@@ -71,22 +71,42 @@ public class ClientConnection<E> implements AutoCloseable {
 
             try {
                 int type = this.unpacker.unpackInt();
-                int boarId;
-                int victimId;
                 int value;
                 String teamName;
                 String message;
+                int x;
+                int y;
+                String tile;
                 switch (type) {
                     case 0:
-                        int x = this.unpacker.unpackInt();
-                        int y = this.unpacker.unpackInt();
-                        return this.eventFactory.createRegistered(x, y);
+                        break;
                     case 1:
-                        return this.eventFactory.createRegistrationAborted();
+                        break;
                     case 2:
-                        boarId = this.unpacker.unpackInt();
-                        return this.eventFactory.createMoved(boarId);
-
+                        x = this.unpacker.unpackInt();
+                        y = this.unpacker.unpackInt();
+                        tile = this.unpacker.unpackString();
+                        teamName = this.unpacker.unpackString();
+                        return this.eventFactory.createMoved(x,y,tile, teamName);
+                    case 3:
+                        return this.eventFactory.createNewGame();
+                    case 4:
+                        value = this.unpacker.unpackInt();
+                        message = this.unpacker.unpackString();
+                        return this.eventFactory.createGameFinished(value, message);
+                    case 5:
+                        value = this.unpacker.unpackInt();
+                        return this.eventFactory.createGamePaused(value);
+                    case 6:
+                    case 7:
+                        break;
+                    case 8:
+                        message = this.unpacker.unpackString();
+                        return this.eventFactory.createChat(message);
+                    case 9:
+                        teamName = this.unpacker.unpackString();
+                        tile = this.unpacker.unpackString();
+                        return this.eventFactory.createPlayer(teamName, tile);
                     default:
                         throw new CommException("Unbekannter Eventtyp!");
                 }
@@ -94,6 +114,7 @@ public class ClientConnection<E> implements AutoCloseable {
                 throw new CommException("Fehler beim Lesen des nächsten Events!", var10);
             }
         }
+        return null;
     }
 
     public final void sendRegister(String name) {
@@ -135,11 +156,12 @@ public class ClientConnection<E> implements AutoCloseable {
 
     }
 
-    public final void sendMove(int x, int y) {
+    public final void sendMove(int x, int y, String t) {
         try {
             this.packer.packInt(2);
             this.packer.packInt(x);
             this.packer.packInt(y);
+            this.packer.packString(t);
             this.packer.flush();
             this.socket.send(this.outputBuffer.toByteArray());
         } catch (MessagePackException | IOException var7) {

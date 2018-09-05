@@ -1,6 +1,7 @@
 package userinterface.messages;
 
 import userinterface.EventFactory;
+import userinterface.TicTacToeController;
 
 
 /**
@@ -11,8 +12,9 @@ public class EventFactoryImpl implements EventFactory<Event> {
     public EventFactoryImpl()
     {}
 
+
     @Override
-    public Event createRegistered(int var1, String var2, String var4, int var5, int var6, int var7) {
+    public Event createRegistered() {
         return null;
     }
 
@@ -34,5 +36,35 @@ public class EventFactoryImpl implements EventFactory<Event> {
     @Override
     public Event createWinner(String var1) {
         return null;
+    }
+
+    @Override
+    public Event createMoved(int x, int y, String tile, String name) {
+        return new Moved(x, y, tile, name);
+    }
+
+    @Override
+    public Event createNewGame() {
+        return new NewGame();
+    }
+
+    @Override
+    public Event createGameFinished(int id, String name) {
+        return new GameFinished(id, name);
+    }
+
+    @Override
+    public Event createGamePaused(int id) {
+        return new GamePaused(id);
+    }
+
+    @Override
+    public Event createChat(String message) {
+        return new Chat(message);
+    }
+
+    @Override
+    public Event createPlayer(String name, String type) {
+        return new NewPlayer(name, type);
     }
 }

@@ -4,20 +4,20 @@ package userinterface.messages;
 import userinterface.connection.ClientConnection;
 import userinterface.model.Game;
 
-public class GameFinished implements Event {
+public class NewGame implements Event {
 
     private String teamName = "";
 
-    public GameFinished(int id, String NameWnr){
-        this.teamName = NameWnr;
+    public NewGame(){
+
     }
 
     public void executeEvent(Game game){
-        game.setRunning(false);
+        game = new Game();
     }
 
     public boolean validateEvent(Game game){
-     return true;
+        return true;
     }
 
 
@@ -27,10 +27,7 @@ public class GameFinished implements Event {
 
 
     public String getText() {
-        return String.format("%s wins!", this.teamName);
+        return String.format("newGame");
     }
 
-    public String getNameWnr() {
-        return this.teamName;
-    }
 }

@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import userinterface.connection.ClientConnection;
+import userinterface.model.Game;
+import userinterface.model.Tile;
 
 public class TicTacToemultiController {
 
@@ -84,6 +86,8 @@ public class TicTacToemultiController {
 	    private int filledXCounter = 0;
 
 	    private char winningTeam;
+        private Game game = new Game();
+        private String tile;
 
 	    final private int[][] winningPositions = {
 	        {1, 5, 9},
@@ -101,97 +105,57 @@ public class TicTacToemultiController {
 	
 	@FXML
     public void handleSquareOneClick(MouseEvent event) {
-		int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(1);
-        }else {
-        	this.handleSquareClick(10);
-        }
+		Userinterface.clientConnection.sendMove(0,0, tile);
     }
 
     @FXML
     public void handleSquareTwoClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(2);
-        }else {
-        	this.handleSquareClick(11);
-        }
+        Userinterface.clientConnection.sendMove(0,1, tile);
+		//if(move == o) {
+		//	this.handleSquareClick(2);
+        //}else {
+        //	this.handleSquareClick(11);
+        //}
     
        
     }
 
     @FXML
     public void handleSquareThreeClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(3);
-        }else {
-        	this.handleSquareClick(12);
-        }
+        Userinterface.clientConnection.sendMove(0,2, tile);
         
     }
 
     @FXML
     public void handleSquareFourClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(4);
-        }else {
-        	this.handleSquareClick(13);
-        }
+        Userinterface.clientConnection.sendMove(1,0, tile);
         
         
     }
 
     @FXML
     public void handleSquareFiveClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(5);
-        }else {
-        	this.handleSquareClick(14);
-        }
+        Userinterface.clientConnection.sendMove(1,1, tile);
     }
 
     @FXML
     public void handleSquareSixClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(6);
-        }else {
-        	this.handleSquareClick(14);
-        }
+        Userinterface.clientConnection.sendMove(1,2, tile);
     }
 
     @FXML
     public void handleSquareSevenClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(7);
-        }else {
-        	this.handleSquareClick(15);
-        }
+        Userinterface.clientConnection.sendMove(2,0, tile);
     }
 
     @FXML
     public void handleSquareEightClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(8);
-        }else {
-        	this.handleSquareClick(16);
-        }
+        Userinterface.clientConnection.sendMove(2,1, tile);
     }
 
     @FXML
     public void handleSquareNineClick(MouseEvent event) {
-    	int move = ClientConnection.sendMove();
-		if(move == o) {
-			this.handleSquareClick(9);
-        }else {
-        	this.handleSquareClick(17);
-        }
+        Userinterface.clientConnection.sendMove(2,2, tile);
     }
 
     public void handleSquareClick(int squareNumber) {
@@ -263,17 +227,17 @@ public class TicTacToemultiController {
 
             if(this.checkVictory()) {
                 this.endGame();
-            } else {
-                this.playRandomMove();
-
-                if(this.checkVictory()) {
-                    this.endGame();
-                }
             }
+
+
         } else if(this.filledSquaresCounter >= 9) {
             this.tie = true;
             this.endGame();
         }
+    }
+
+    public void createNewGame(){
+	    this.game = new Game();
     }
     
     public boolean checkVictory() {
