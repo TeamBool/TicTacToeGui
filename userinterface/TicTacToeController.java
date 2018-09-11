@@ -6,24 +6,24 @@
 package userinterface;
 
 
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Random;
-import javafx.scene.input.MouseEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.shape.Circle;
-import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import userinterface.model.Game;
 import userinterface.model.OTile;
 import userinterface.model.XTile;
+
+import java.net.URL;
+import java.util.Random;
+import java.util.ResourceBundle;
 
 public class TicTacToeController implements Initializable {
     @FXML
@@ -94,14 +94,14 @@ public class TicTacToeController implements Initializable {
     private char winningTeam;
 
     final private int[][] winningPositions = {
-        {1, 5, 9},
-        {3, 5, 7},
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9},
-        {1, 4, 7},
-        {2, 5, 8},
-        {3, 6, 9}
+            {1, 5, 9},
+            {3, 5, 7},
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9},
+            {1, 4, 7},
+            {2, 5, 8},
+            {3, 6, 9}
     };
 
     private boolean allowMoves = true;
@@ -156,8 +156,8 @@ public class TicTacToeController implements Initializable {
     }
 
     public void handleSquareClick(int squareNumber) {
-        if(!isAlreadySelectedBox(squareNumber) && this.allowMoves == true) {
-            switch(squareNumber) {
+        if (!isAlreadySelectedBox(squareNumber) && this.allowMoves == true) {
+            switch (squareNumber) {
                 case 1:
                     this.showCircleOne();
                     game.setMove(new OTile("AI", 0, 0));
@@ -185,7 +185,7 @@ public class TicTacToeController implements Initializable {
                 case 7:
                     this.showCircleSeven();
                     game.setMove(new OTile("AI", 2, 0));
-                    break;    
+                    break;
                 case 8:
                     this.showCircleEight();
                     game.setMove(new OTile("AI", 2, 1));
@@ -204,21 +204,21 @@ public class TicTacToeController implements Initializable {
             this.filledSquaresCounter++;
             this.filledCirclesCounter++;
 
-            if(this.checkVictory()) {
+            if (this.checkVictory()) {
                 this.endGame();
             } else {
                 this.playRandomMove();
             }
-        } else if(this.filledSquaresCounter >= 9) {
+        } else if (this.filledSquaresCounter >= 9) {
             this.tie = true;
             this.endGame();
         }
-        if(this.game.hasWinner()){
+        if (this.game.hasWinner()) {
             this.allowMoves = false;
             this.lblMessages.setText("Game over!");
             return;
         }
-        if(this.filledSquaresCounter == 9 && this.allowMoves){
+        if (this.filledSquaresCounter == 9 && this.allowMoves) {
             this.allowMoves = false;
             this.lblMessages.setText("It is a tie!");
             return;
@@ -228,8 +228,8 @@ public class TicTacToeController implements Initializable {
     public boolean isAlreadySelectedBox(int squareNumber) {
         boolean found = false;
 
-        for(int filledSquare : this.filledSquares) {
-            if(squareNumber == filledSquare) {
+        for (int filledSquare : this.filledSquares) {
+            if (squareNumber == filledSquare) {
                 found = true;
             }
         }
@@ -238,20 +238,20 @@ public class TicTacToeController implements Initializable {
     }
 
     public boolean checkVictory() {
-        if(this.filledCirclesCounter < 3 && this.filledXCounter < 3) {
+        if (this.filledCirclesCounter < 3 && this.filledXCounter < 3) {
             return false;
         }
 
-        for(int[] filled : this.winningPositions) {
+        for (int[] filled : this.winningPositions) {
             int slotCounter = 0;
 
-            for(int singleFilled : filled) {
-                if(this.isOccupiedByCircle(singleFilled)) {
+            for (int singleFilled : filled) {
+                if (this.isOccupiedByCircle(singleFilled)) {
                     slotCounter++;
                 }
             }
 
-            if(slotCounter == 3) {
+            if (slotCounter == 3) {
                 this.winningTeam = 'O';
                 this.allowMoves = false;
                 return true;
@@ -259,13 +259,13 @@ public class TicTacToeController implements Initializable {
 
             slotCounter = 0;
 
-            for(int singleFilled : filled) {
-                if(this.isOccupiedByX(singleFilled)) {
+            for (int singleFilled : filled) {
+                if (this.isOccupiedByX(singleFilled)) {
                     slotCounter++;
                 }
             }
 
-            if(slotCounter == 3) {
+            if (slotCounter == 3) {
                 this.winningTeam = 'X';
                 this.allowMoves = false;
                 return true;
@@ -313,64 +313,65 @@ public class TicTacToeController implements Initializable {
 
     public void playRandomMove() {
         Random random = new Random();
-        int result = random.nextInt(9 - 1 + 1) + 1;;
+        int result = random.nextInt(9 - 1 + 1) + 1;
+        ;
 
-        if(this.filledSquaresCounter < 9) {
-            while(this.isAlreadySelectedBox(result)) {
+        if (this.filledSquaresCounter < 9) {
+            while (this.isAlreadySelectedBox(result)) {
                 result = random.nextInt(9 - 1 + 1) + 1;
             }
 
-            switch(result) {
+            switch (result) {
                 case 1:
-                    if(game.setMove(new XTile(Userinterface.playerName, 0, 0)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 0, 0)))
                         this.showXOne();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 2:
-                    if(game.setMove(new XTile(Userinterface.playerName, 0, 1)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 0, 1)))
                         this.showXTwo();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 3:
-                    if(game.setMove(new XTile(Userinterface.playerName, 0, 2)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 0, 2)))
                         this.showXThree();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 4:
-                    if(game.setMove(new XTile(Userinterface.playerName, 1, 0)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 1, 0)))
                         this.showXFour();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 5:
-                    if(game.setMove(new XTile(Userinterface.playerName, 1, 1)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 1, 1)))
                         this.showXFive();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 6:
-                    if(game.setMove(new XTile(Userinterface.playerName, 1, 2)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 1, 2)))
                         this.showXSix();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 7:
-                    if(game.setMove(new XTile(Userinterface.playerName, 2, 0)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 2, 0)))
                         this.showXSeven();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 8:
-                    if(game.setMove(new XTile(Userinterface.playerName, 2, 1)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 2, 1)))
                         this.showXEight();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 9:
-                    if(game.setMove(new XTile(Userinterface.playerName, 2, 2)))
+                    if (game.setMove(new XTile(Userinterface.playerName, 2, 2)))
                         this.showXNine();
                     else
                         this.lblMessages.setText("Ungültiger Zug!");
@@ -431,8 +432,8 @@ public class TicTacToeController implements Initializable {
     public boolean isOccupiedByCircle(int circlePosition) {
         boolean found = false;
 
-        for(int filledCircle : this.filledCircles) {
-            if(filledCircle == circlePosition) {
+        for (int filledCircle : this.filledCircles) {
+            if (filledCircle == circlePosition) {
                 found = true;
             }
         }
@@ -443,8 +444,8 @@ public class TicTacToeController implements Initializable {
     public boolean isOccupiedByX(int xPosition) {
         boolean found = false;
 
-        for(int filled : this.filledX) {
-            if(filled == xPosition) {
+        for (int filled : this.filledX) {
+            if (filled == xPosition) {
                 found = true;
             }
         }
@@ -455,11 +456,11 @@ public class TicTacToeController implements Initializable {
     public void endGame() {
         this.allowMoves = false;
 
-        if(this.tie == true) {
+        if (this.tie == true) {
             this.lblMessages.setText("It was a tie!");
-        } else if(String.valueOf(this.winningTeam).equals("O")) {
+        } else if (String.valueOf(this.winningTeam).equals("O")) {
             this.lblMessages.setText("You win!");
-        } else if(String.valueOf(this.winningTeam).equals("X")) {
+        } else if (String.valueOf(this.winningTeam).equals("X")) {
             this.lblMessages.setText("Sorry, you lose!");
         }
     }
@@ -512,19 +513,20 @@ public class TicTacToeController implements Initializable {
         this.game.addPlayer("Player", "X");
         this.game.addPlayer("AI", "O");
         this.game.startGame();
-    }    
-    public void backbutton2(ActionEvent event)throws Exception {
-       
+    }
+
+    public void backbutton2(ActionEvent event) throws Exception {
+
         {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("userinterface/main.fxml"));
             Stage stage = new Stage();
             stage.setTitle(" ");
             stage.setScene(new Scene(root, 600, 570));
             stage.show();
-            
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+
+            ((Node) (event.getSource())).getScene().getWindow().hide();
         }
-        
+
     }
 
 }

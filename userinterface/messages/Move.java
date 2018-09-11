@@ -1,4 +1,3 @@
-
 package userinterface.messages;
 
 import userinterface.connection.ClientConnection;
@@ -15,22 +14,23 @@ public class Move implements Event {
     private String name = "";
     private Tile t;
 
-    public Move(int x, int y, String tile, String name){this.x = x;
-    this.y = y;
-    this.tile = tile;
-    this.name = name;
-    if(tile.toLowerCase().equals("x"))
-        this.t = new XTile(this.name, x, y);
-    else
-        this.t = new OTile(this.name, x, y);
+    public Move(int x, int y, String tile, String name) {
+        this.x = x;
+        this.y = y;
+        this.tile = tile;
+        this.name = name;
+        if (tile.toLowerCase().equals("x"))
+            this.t = new XTile(this.name, x, y);
+        else
+            this.t = new OTile(this.name, x, y);
     }
 
-    public void executeEvent(Game game){
-        if(validateEvent(game))
+    public void executeEvent(Game game) {
+        if (validateEvent(game))
             game.getField().setTile(t);
     }
 
-    public boolean validateEvent(Game game){
+    public boolean validateEvent(Game game) {
 
         return game.getField().checkSetTile(this.t);
     }

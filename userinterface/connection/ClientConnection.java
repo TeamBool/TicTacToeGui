@@ -1,9 +1,5 @@
 package userinterface.connection;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Objects;
-
 import org.msgpack.core.MessagePack;
 import org.msgpack.core.MessagePackException;
 import org.msgpack.core.MessagePacker;
@@ -12,8 +8,11 @@ import org.msgpack.core.buffer.ArrayBufferInput;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQException;
-import org.zeromq.ZMQ.Socket;
 import userinterface.EventFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Objects;
 
 public class ClientConnection<E> implements AutoCloseable {
 
@@ -87,7 +86,7 @@ public class ClientConnection<E> implements AutoCloseable {
                         y = this.unpacker.unpackInt();
                         tile = this.unpacker.unpackString();
                         teamName = this.unpacker.unpackString();
-                        return this.eventFactory.createMove(x,y,tile, teamName);
+                        return this.eventFactory.createMove(x, y, tile, teamName);
                     case 3:
                         return this.eventFactory.createNewGame();
                     case 4:
@@ -107,6 +106,11 @@ public class ClientConnection<E> implements AutoCloseable {
                         teamName = this.unpacker.unpackString();
                         tile = this.unpacker.unpackString();
                         return this.eventFactory.createPlayer(teamName, tile);
+                    case 10:
+                        teamName = this.unpacker.unpackString();
+                        value = this.unpacker.unpackInt();
+                        System.out.println("logged in");
+                        return this.eventFactory.createLogin(teamName, value);
                     default:
                         throw new CommException("Unbekannter Eventtyp!");
                 }
@@ -254,6 +258,27 @@ public class ClientConnection<E> implements AutoCloseable {
         }
     }
 
+    public final void sendLogin(String name, int id) {
+        try {
+            this.packer.packInt(10);
+            this.packer.packString(name);
+            this.packer.packInt(id);
+            this.packer.flush();
+            this.socket.send(this.outputBuffer.toByteArray());
+        } catch (MessagePackException | IOException var9) {
+            throw new CommException("Ein 'Login' Command konnte nicht ins Wire-Format übersetzt werden!", var9);
+        } catch (ZMQException var10) {
+            if (var10.getErrorCode() == 65) {
+                throw new CommException("Die andere Seite der Verbindung ist bereits geschlossen!", var10);
+            }
+
+            throw new CommException(String.format("Clientseitiger Commlibfehler %d! Bitte wenden Sie sich an Ihren Tutor!", var10.getErrorCode()), var10);
+        } finally {
+            this.outputBuffer.reset();
+        }
+
+    }
+
     static final class Events {
         static final int REGISTERED = 0;
         static final int WATCHED = 1;
@@ -265,6 +290,7 @@ public class ClientConnection<E> implements AutoCloseable {
         static final int LOST_PWED = 7;
         static final int CHATED = 8;
         static final int NEWPLAYERED = 9;
+        static final int LOGIN = 10;
 
         private Events() {
         }

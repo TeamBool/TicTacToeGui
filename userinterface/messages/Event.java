@@ -10,14 +10,16 @@ public interface Event {
 
     /**
      * Executes the Event at the given {@link Client} instance.
-     * @param game {@link Game} to be updated
+     *
+     * @param game   {@link Game} to be updated
      * @param client {@link Client} to be used
      */
     public void executeEvent(Game game);
 
     /**
      * Test the Event at the given {@link Client} instance.
-     * @param game {@link Game} to be updated
+     *
+     * @param game   {@link Game} to be updated
      * @param client {@link Client} to be used (for ActNow espacially)
      * @return true, if Event is valid
      */
@@ -25,12 +27,14 @@ public interface Event {
 
     /**
      * Sends a command to the server using a given {@link ClientConnection} instance
+     *
      * @param cc Connection instance to use for sending
      */
     public void sendCommand(ClientConnection cc);
 
     /**
      * Gets a text that can be printed out into a logfile
+     *
      * @param cli The client on which the event should be executed on
      * @return a string that represents the event in a logfile
      */

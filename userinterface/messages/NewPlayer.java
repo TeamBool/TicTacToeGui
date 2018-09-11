@@ -1,4 +1,3 @@
-
 package userinterface.messages;
 
 import userinterface.connection.ClientConnection;
@@ -9,16 +8,16 @@ public class NewPlayer implements Event {
     private String name;
     private String type;
 
-    public NewPlayer(String name, String type){
+    public NewPlayer(String name, String type) {
         this.name = name;
         this.type = type;
     }
 
-    public void executeEvent(Game game){
+    public void executeEvent(Game game) {
         game.addPlayer(this.name, this.type);
     }
 
-    public boolean validateEvent(Game game){
+    public boolean validateEvent(Game game) {
         return game.getPlayerList().size() < 2;
     }
 

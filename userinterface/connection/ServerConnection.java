@@ -1,19 +1,19 @@
 package userinterface.connection;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.Objects;
-
-import userinterface.CommandFactory;
 import org.msgpack.core.MessagePack;
 import org.msgpack.core.MessagePackException;
 import org.msgpack.core.MessagePacker;
 import org.msgpack.core.MessageUnpacker;
 import org.msgpack.core.buffer.ArrayBufferInput;
 import org.zeromq.ZContext;
-import org.zeromq.ZMQException;
 import org.zeromq.ZMQ.Socket;
+import org.zeromq.ZMQException;
+import userinterface.CommandFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.Objects;
 
 public class ServerConnection<C> implements AutoCloseable {
     private final ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -31,7 +31,7 @@ public class ServerConnection<C> implements AutoCloseable {
         } else if (port >= 65535) {
             throw new IllegalArgumentException("Portnummer zu groß! (Siehe https://de.wikipedia.org/wiki/Transmission_Control_Protocol#Allgemeines");
         } else {
-            this.commandFactory = (CommandFactory)Objects.requireNonNull(commandFactory);
+            this.commandFactory = (CommandFactory) Objects.requireNonNull(commandFactory);
             this.unpacker = MessagePack.newDefaultUnpacker(this.inputBuffer);
             this.packer = MessagePack.newDefaultPacker(this.outputBuffer);
             this.context = new ZContext();
@@ -60,7 +60,7 @@ public class ServerConnection<C> implements AutoCloseable {
     }
 
     private static byte[] zmqId(int value) {
-        return new byte[]{0, (byte)(value >>> 24), (byte)(value >>> 16), (byte)(value >>> 8), (byte)value};
+        return new byte[]{0, (byte) (value >>> 24), (byte) (value >>> 16), (byte) (value >>> 8), (byte) value};
     }
 
     public final C nextCommand() {
@@ -99,7 +99,7 @@ public class ServerConnection<C> implements AutoCloseable {
                         y = this.unpacker.unpackInt();
                         tile = this.unpacker.unpackString();
                         teamName = this.unpacker.unpackString();
-                        return this.commandFactory.createMoved(commId(identity), x,y,tile, teamName);
+                        return this.commandFactory.createMoved(commId(identity), x, y, tile, teamName);
                     case 3:
                         return this.commandFactory.createNewGame(commId(identity));
                     case 4:
@@ -119,6 +119,11 @@ public class ServerConnection<C> implements AutoCloseable {
                         teamName = this.unpacker.unpackString();
                         tile = this.unpacker.unpackString();
                         return this.commandFactory.createPlayer(commId(identity), teamName, tile);
+                    case 10:
+                        teamName = this.unpacker.unpackString();
+                        value = this.unpacker.unpackInt();
+                        System.out.println("login");
+                        return this.commandFactory.createLogin(commId(identity), teamName, value);
                     default:
                         throw new CommException("Unbekannter Commandtyp!");
                 }
@@ -256,6 +261,28 @@ public class ServerConnection<C> implements AutoCloseable {
 
     }
 
+    public final void sendLogin(int commId, String teamName, int id) {
+        try {
+            this.packer.packInt(10);
+            this.packer.packString(teamName);
+            this.packer.packInt(id);
+            this.packer.flush();
+            this.socket.sendMore(zmqId(commId));
+            this.socket.send(this.outputBuffer.toByteArray());
+        } catch (MessagePackException | IOException var8) {
+            throw new CommException("Ein 'Winner' Event konnte nicht ins Wire-Format übersetzt werden!", var8);
+        } catch (ZMQException var9) {
+            if (var9.getErrorCode() == 65) {
+                throw new CommException("Die andere Seite der Verbindung ist bereits geschlossen!", var9);
+            }
+
+            throw new CommException(String.format("Serverseitiger Commlibfehler %d! Bitte wenden Sie sich an Ihren Tutor!", var9.getErrorCode()), var9);
+        } finally {
+            this.outputBuffer.reset();
+        }
+
+    }
+
     static final class Commands {
         static final int REGISTER = 0;
         static final int WATCH = 1;
@@ -267,6 +294,8 @@ public class ServerConnection<C> implements AutoCloseable {
         static final int LOST_PW = 7;
         static final int CHAT = 8;
         static final int NEWPLAYER = 9;
+        static final int LOGIN = 10;
+
         private Commands() {
         }
     }

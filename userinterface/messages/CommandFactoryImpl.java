@@ -16,7 +16,7 @@ public class CommandFactoryImpl implements CommandFactory<Command> {
         playerCount = 0;
     }
 
-    public CommIds getCommIds(){
+    public CommIds getCommIds() {
         return commIds;
     }
 
@@ -71,6 +71,11 @@ public class CommandFactoryImpl implements CommandFactory<Command> {
 
     @Override
     public Command createPlayer(int c, String n, String t) {
+        return null;
+    }
+
+    @Override
+    public Command createLogin(int c, String a, int b) {
         return null;
     }
 

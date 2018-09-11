@@ -8,29 +8,29 @@ public class Field {
     public ArrayList<Player> players;
     public int winCondition;
 
-    public Field(int size, ArrayList<Player> players)
-    {
+    public Field(int size, ArrayList<Player> players) {
         this.size = size;
         gameField = new Tile[size][size];
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                gameField[i][j] = new EmptyTile(i,j);
+                gameField[i][j] = new EmptyTile(i, j);
             }
         }
         this.players = players;
         this.winCondition = players.size() + 1;
     }
 
-    public boolean checkSetTile(Tile tile){
-        if(gameField[tile.getPos().getX()][tile.getPos().getY()].getType() == Tile.TILE_TYPE.EMPTY){
+    public boolean checkSetTile(Tile tile) {
+        if (gameField[tile.getPos().getX()][tile.getPos().getY()].getType() == Tile.TILE_TYPE.EMPTY) {
             return true;
             //current player == tile.owner?
         } else {
-            return false;}
+            return false;
+        }
     }
 
-    public void setTile(Tile tile){
-        if(checkSetTile(tile)){
+    public void setTile(Tile tile) {
+        if (checkSetTile(tile)) {
             gameField[tile.getPos().getX()][tile.getPos().getY()] = tile;
         } else {
             throw new IllegalArgumentException("The position is already occupied!");
@@ -200,20 +200,21 @@ public class Field {
         }
         return null;
     }
-    private int checkHorizontal(int i, int j, Player player){
+
+    private int checkHorizontal(int i, int j, Player player) {
         int playerCount = 0;
-        if(gameField[i][j].getType() == player.getTileType()){
-            if(j == 0 && gameField[i][j+1].getType() == player.getTileType()){
+        if (gameField[i][j].getType() == player.getTileType()) {
+            if (j == 0 && gameField[i][j + 1].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
             }
-            if(j != 0 && j < size-1 && gameField[i][j+1].getType() == player.getTileType() && gameField[i][j-1].getType() == player.getTileType()){
+            if (j != 0 && j < size - 1 && gameField[i][j + 1].getType() == player.getTileType() && gameField[i][j - 1].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
             }
-            if(j != 0 && j == size-1 && gameField[i][j-1].getType() == player.getTileType()){
+            if (j != 0 && j == size - 1 && gameField[i][j - 1].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
@@ -222,20 +223,20 @@ public class Field {
         return playerCount;
     }
 
-    private int checkVertical(int i, int j, Player player){
+    private int checkVertical(int i, int j, Player player) {
         int playerCount = 0;
-        if(gameField[i][j].getType() == player.getTileType()){
-            if(i == 0 && gameField[i+1][j].getType() == player.getTileType()){
+        if (gameField[i][j].getType() == player.getTileType()) {
+            if (i == 0 && gameField[i + 1][j].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
             }
-            if(i != 0 && i < size-1 && gameField[i+1][j].getType() == player.getTileType() && gameField[i-1][j].getType() == player.getTileType()){
+            if (i != 0 && i < size - 1 && gameField[i + 1][j].getType() == player.getTileType() && gameField[i - 1][j].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
             }
-            if(i != 0 && i == size-1 && gameField[i-1][j].getType() == player.getTileType()){
+            if (i != 0 && i == size - 1 && gameField[i - 1][j].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
@@ -244,20 +245,20 @@ public class Field {
         return playerCount;
     }
 
-    private int checkDiagonal(int i, Player player){
+    private int checkDiagonal(int i, Player player) {
         int playerCount = 0;
-        if(gameField[i][i].getType() == player.getTileType()){
-            if(i == 0 && gameField[i+1][i+1].getType() == player.getTileType()){
+        if (gameField[i][i].getType() == player.getTileType()) {
+            if (i == 0 && gameField[i + 1][i + 1].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
             }
-            if(i != 0 && i < size-1 && gameField[i+1][i+1].getType() == player.getTileType() && gameField[i-1][i-1].getType() == player.getTileType()){
+            if (i != 0 && i < size - 1 && gameField[i + 1][i + 1].getType() == player.getTileType() && gameField[i - 1][i - 1].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;
             }
-            if(i != 0 && i == size-1 && gameField[i-1][i-1].getType() == player.getTileType()){
+            if (i != 0 && i == size - 1 && gameField[i - 1][i - 1].getType() == player.getTileType()) {
                 playerCount++;
             } else {
                 playerCount = 0;

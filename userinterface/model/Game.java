@@ -11,50 +11,49 @@ public class Game {
     private boolean running = false;
     private boolean paused = false;
 
-    public Game(){
+    public Game() {
         //TODO: get GameID form DB
         this.id = 1;
     }
 
-    public Game(int id){
+    public Game(int id) {
         this.id = id;
     }
 
-    public boolean startGame(){
+    public boolean startGame() {
         try {
             createField();
             this.running = true;
-        } catch (Exception e){
-            System.out.println("Fehler: " );
+        } catch (Exception e) {
+            System.out.println("Fehler: ");
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
-    private Field createField(){
+    private Field createField() {
         this.field = new Field(this.size, players);
         return this.field;
     }
 
-    private void setSize(int x){
+    private void setSize(int x) {
         this.size = x;
     }
 
-    public boolean addPlayer(Player player){
+    public boolean addPlayer(Player player) {
         try {
             players.add(player);
-        } catch (Exception e){
-            System.out.println("Fehler: " );
+        } catch (Exception e) {
+            System.out.println("Fehler: ");
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
-    public boolean hasWinner()
-    {
-        if(this.running && this.field.checkWinner() == null){
+    public boolean hasWinner() {
+        if (this.running && this.field.checkWinner() == null) {
             return false;
         } else {
             this.running = false;
@@ -62,32 +61,32 @@ public class Game {
         }
     }
 
-    public boolean setMove(Tile t){
-        if(field.checkSetTile(t)){
+    public boolean setMove(Tile t) {
+        if (field.checkSetTile(t)) {
             this.field.setTile(t);
             return true;
         } else
             return false;
     }
 
-    public void addPlayer(String player, String tile){
+    public void addPlayer(String player, String tile) {
         Tile.TILE_TYPE tile_type;
-        if(tile.toLowerCase().equals("x"))
+        if (tile.toLowerCase().equals("x"))
             tile_type = Tile.TILE_TYPE.X;
         else
             tile_type = Tile.TILE_TYPE.O;
         this.addPlayer(new Player(player, tile_type));
     }
 
-    public Field getField(){
+    public Field getField() {
         return this.field;
     }
 
-    public ArrayList getPlayerList(){
+    public ArrayList getPlayerList() {
         return this.players;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
@@ -95,7 +94,7 @@ public class Game {
         this.paused = true;
     }
 
-    public void setUnPuase(){
+    public void setUnPuase() {
         this.paused = false;
     }
 

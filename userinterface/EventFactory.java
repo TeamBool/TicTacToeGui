@@ -22,4 +22,6 @@ public interface EventFactory<T> {
     T createChat(String message);
 
     T createPlayer(String name, String type);
+
+    T createLogin(String name, int id);
 }

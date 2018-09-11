@@ -1,19 +1,22 @@
 package userinterface.messages;
 
+import userinterface.Userinterface;
 import userinterface.connection.ClientConnection;
 import userinterface.model.Game;
 
 
-public class GamePause implements Event {
+public class Login implements Event {
 
     //Fields
-    private int gameID;
+    private int id;
+    private String name;
 
     /**
      * @param gameID
      */
-    public GamePause(int gameID) {
-        this.gameID = gameID;
+    public Login(String name, int id) {
+        this.name = name;
+        this.id = id;
     }
 
     /**
@@ -23,7 +26,13 @@ public class GamePause implements Event {
      */
     @Override
     public void executeEvent(Game game) {
-        game.setPaused();
+        try {
+            Userinterface.semaphore.acquire();
+            Userinterface.playerlist.put(this.id, this.name);
+            Userinterface.semaphore.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -34,7 +43,7 @@ public class GamePause implements Event {
      */
     @Override
     public boolean validateEvent(Game game) {
-        return !game.isPaused();
+        return !Userinterface.playerlist.containsKey(id);
     }
 
     @Override

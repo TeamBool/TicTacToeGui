@@ -5,9 +5,9 @@ public class ITile implements Tile {
     private Position position;
     private String owner;
 
-    public ITile(String owner, int x, int y){
+    public ITile(String owner, int x, int y) {
         this.owner = owner;
-        this.position = new Position(x,y);
+        this.position = new Position(x, y);
     }
 
     @Override

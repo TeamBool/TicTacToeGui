@@ -1,4 +1,3 @@
-
 package userinterface.messages;
 
 import userinterface.connection.ClientConnection;
@@ -8,15 +7,15 @@ public class NewGame implements Event {
 
     private String teamName = "";
 
-    public NewGame(){
+    public NewGame() {
 
     }
 
-    public void executeEvent(Game game){
+    public void executeEvent(Game game) {
         game = new Game();
     }
 
-    public boolean validateEvent(Game game){
+    public boolean validateEvent(Game game) {
         return true;
     }
 

@@ -1,7 +1,6 @@
 package userinterface.messages;
 
 import userinterface.EventFactory;
-import userinterface.TicTacToeController;
 
 
 /**
@@ -9,8 +8,8 @@ import userinterface.TicTacToeController;
  */
 public class EventFactoryImpl implements EventFactory<Event> {
 
-    public EventFactoryImpl()
-    {}
+    public EventFactoryImpl() {
+    }
 
 
     @Override
@@ -66,5 +65,10 @@ public class EventFactoryImpl implements EventFactory<Event> {
     @Override
     public Event createPlayer(String name, String type) {
         return new NewPlayer(name, type);
+    }
+
+    @Override
+    public Event createLogin(String name, int id) {
+        return new Login(name, id);
     }
 }

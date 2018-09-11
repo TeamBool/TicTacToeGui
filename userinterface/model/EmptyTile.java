@@ -5,8 +5,8 @@ public class EmptyTile implements Tile {
     private Position position;
     private String owner = "none";
 
-    public EmptyTile(int x, int y){
-        this.position = new Position(x,y);
+    public EmptyTile(int x, int y) {
+        this.position = new Position(x, y);
     }
 
     @Override
