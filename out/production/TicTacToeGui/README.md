@@ -1,2 +1,0 @@
-# TicTacToeGui
-gui
