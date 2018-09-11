@@ -5,15 +5,26 @@ package userinterface;
 import java.sql.*;
 
 public class LoginModel {
-private Connection conection;
-  
-  public LoginModel () {
-   conection = SqliteConnection.Connector();
-   if (conection == null) {
-   System.out.println("Verbindung steht nicht!");
-    System.exit(1);}
-  }
-  
+    private Connection conection;
+    private Database db;
+
+    public LoginModel() {
+        conection = SqliteConnection.Connector();
+        if (conection == null) {
+            System.out.println("Verbindung steht nicht!");
+            System.exit(1);
+        }
+        try {
+            this.db = new Database("jdbc:sqlite:sqlite.db");
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
   public boolean isDbConnected() {
    try {
 	   return !conection.isClosed();
@@ -26,13 +37,15 @@ private Connection conection;
    public boolean isLogin(String user,String pass) throws SQLException {
 	   PreparedStatement preparedStatement = null;
 	   ResultSet resultSet = null;
-	   String query = "select * from user where username = ? and password = ? ";
+	   String query = "select id from user where username = ? and password = ? ";
 	   try {
 		   preparedStatement = conection.prepareStatement(query);
 		   preparedStatement.setString(1, user);
 		   preparedStatement.setString(2, pass);
 		   resultSet = preparedStatement.executeQuery();
 		   if(resultSet.next()) {
+		   		Userinterface.playerName = user;
+		   		Userinterface.playerID = resultSet.getInt(0);
 			   return true;
 		   }
 		   else {

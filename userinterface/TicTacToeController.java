@@ -21,6 +21,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import userinterface.model.Game;
+import userinterface.model.OTile;
+import userinterface.model.XTile;
 
 public class TicTacToeController implements Initializable {
     @FXML
@@ -105,6 +108,8 @@ public class TicTacToeController implements Initializable {
 
     private boolean tie = false;
 
+    private Game game = new Game();
+
     @FXML
     public void handleSquareOneClick(MouseEvent event) {
         this.handleSquareClick(1);
@@ -155,30 +160,39 @@ public class TicTacToeController implements Initializable {
             switch(squareNumber) {
                 case 1:
                     this.showCircleOne();
+                    game.setMove(new OTile("AI", 0, 0));
                     break;
                 case 2:
                     this.showCircleTwo();
+                    game.setMove(new OTile("AI", 0, 1));
                     break;
                 case 3:
                     this.showCircleThree();
+                    game.setMove(new OTile("AI", 0, 2));
                     break;
                 case 4:
                     this.showCircleFour();
+                    game.setMove(new OTile("AI", 1, 0));
                     break;
                 case 5:
                     this.showCircleFive();
+                    game.setMove(new OTile("AI", 1, 1));
                     break;
                 case 6:
                     this.showCircleSix();
+                    game.setMove(new OTile("AI", 1, 2));
                     break;
                 case 7:
                     this.showCircleSeven();
+                    game.setMove(new OTile("AI", 2, 0));
                     break;    
                 case 8:
                     this.showCircleEight();
+                    game.setMove(new OTile("AI", 2, 1));
                     break;
                 case 9:
                     this.showCircleNine();
+                    game.setMove(new OTile("AI", 2, 2));
                     break;
                 default:
                     System.out.println("Impossible choice");
@@ -194,14 +208,20 @@ public class TicTacToeController implements Initializable {
                 this.endGame();
             } else {
                 this.playRandomMove();
-
-                if(this.checkVictory()) {
-                    this.endGame();
-                }
             }
         } else if(this.filledSquaresCounter >= 9) {
             this.tie = true;
             this.endGame();
+        }
+        if(this.game.hasWinner()){
+            this.allowMoves = false;
+            this.lblMessages.setText("Game over!");
+            return;
+        }
+        if(this.filledSquaresCounter == 9 && this.allowMoves){
+            this.allowMoves = false;
+            this.lblMessages.setText("It is a tie!");
+            return;
         }
     }
 
@@ -302,31 +322,58 @@ public class TicTacToeController implements Initializable {
 
             switch(result) {
                 case 1:
-                    this.showXOne();
+                    if(game.setMove(new XTile(Userinterface.playerName, 0, 0)))
+                        this.showXOne();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 2:
-                    this.showXTwo();
+                    if(game.setMove(new XTile(Userinterface.playerName, 0, 1)))
+                        this.showXTwo();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 3:
-                    this.showXThree();
+                    if(game.setMove(new XTile(Userinterface.playerName, 0, 2)))
+                        this.showXThree();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 4:
-                    this.showXFour();
+                    if(game.setMove(new XTile(Userinterface.playerName, 1, 0)))
+                        this.showXFour();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 5:
-                    this.showXFive();
+                    if(game.setMove(new XTile(Userinterface.playerName, 1, 1)))
+                        this.showXFive();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 6:
-                    this.showXSix();
+                    if(game.setMove(new XTile(Userinterface.playerName, 1, 2)))
+                        this.showXSix();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 7:
-                    this.showXSeven();
-                    break;    
+                    if(game.setMove(new XTile(Userinterface.playerName, 2, 0)))
+                        this.showXSeven();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
+                    break;
                 case 8:
-                    this.showXEight();
+                    if(game.setMove(new XTile(Userinterface.playerName, 2, 1)))
+                        this.showXEight();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 case 9:
-                    this.showXNine();
+                    if(game.setMove(new XTile(Userinterface.playerName, 2, 2)))
+                        this.showXNine();
+                    else
+                        this.lblMessages.setText("Ungültiger Zug!");
                     break;
                 default:
                     System.out.println("Impossible choice");
@@ -453,11 +500,18 @@ public class TicTacToeController implements Initializable {
         this.filledSquaresCounter = 0;
         this.filledCirclesCounter = 0;
         this.filledXCounter = 0;
+        this.game = new Game();
+        this.game.addPlayer("Player", "X");
+        this.game.addPlayer("AI", "O");
+        this.game.startGame();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.game.addPlayer("Player", "X");
+        this.game.addPlayer("AI", "O");
+        this.game.startGame();
     }    
     public void backbutton2(ActionEvent event)throws Exception {
        

@@ -57,24 +57,29 @@ public class LoginController implements Initializable {
    isConnected.setText("Not Connected");}
   }
  
-  public void Login(ActionEvent event)  {
-	  try {
-		  	if (logmdl.isLogin(txtusername.getText(), txtpassword.getText())) {
-		  		isConnected.setText("Login erfolgreich");
-		  		Stage primaryStage = new Stage();
-		  		Parent root = FXMLLoader.load(getClass().getResource("/userinterface/main.fxml"));
-		  	    Scene scene = new Scene(root);
-		  	    primaryStage.setScene(scene);
-		  	    primaryStage.show();
-	  }else {
-		  isConnected.setText("Username oder Password falsch");
-	  }
-	  }catch (SQLException e) {
-	  isConnected.setText("Username oder Password falsch");
-	  e.printStackTrace();
-	  } catch (IOException e) {
-		e.printStackTrace();
-	}
+  public void Login(ActionEvent event) {
+      try {
+          //if (logmdl.isLogin(txtusername.getText(), txtpassword.getText())) {
+          Database database = new Database("jdbc:sqlite:sqlite.db");
+          database.connectLite();
+          if (database.loginUser(txtusername.getText(), txtpassword.getText())) {
+              isConnected.setText("Login erfolgreich");
+              Stage primaryStage = new Stage();
+              Parent root = FXMLLoader.load(getClass().getResource("/userinterface/main.fxml"));
+              Scene scene = new Scene(root);
+              primaryStage.setScene(scene);
+              primaryStage.show();
+          } else {
+              isConnected.setText("Username oder Password falsch");
+          }
+      } catch (SQLException e) {
+          isConnected.setText("Username oder Password falsch");
+          e.printStackTrace();
+      } catch (IOException e) {
+          e.printStackTrace();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
   }
 
   public void doExit(){
