@@ -85,7 +85,44 @@ public class FXMLDocController {
         }
     }
 
+    public void gamemultiplayer(ActionEvent event) throws Exception {
 
+        {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("userinterface/TicTacToemulti.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("");
+            stage.setScene(new Scene(root, 600, 570));
+            stage.show();
+
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }
+    }
+
+    public void statistikbtn(ActionEvent event) throws Exception {
+
+        {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("userinterface/statistik.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("");
+            stage.setScene(new Scene(root, 600, 570));
+            stage.show();
+
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }
+    }
+
+    public void historybtn(ActionEvent event) throws Exception {
+
+        {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("userinterface/history.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("");
+            stage.setScene(new Scene(root, 600, 570));
+            stage.show();
+
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }
+    }
     public void backbutton(ActionEvent event) throws Exception {
 
         {

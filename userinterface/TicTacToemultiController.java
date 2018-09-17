@@ -108,10 +108,10 @@ public class TicTacToemultiController {
     public void handleSquareTwoClick(MouseEvent event) {
         Userinterface.clientConnection.sendMove(0, 1, tile, Userinterface.playerName);
         //if(move == o) {
-        //	this.handleSquareClick(2);
-        //}else {
-        //	this.handleSquareClick(11);
-        //}
+            //	this.handleSquareClick(2);
+            //}else {
+            //	this.handleSquareClick(11);
+            //}
 
 
     }
@@ -396,6 +396,18 @@ public class TicTacToemultiController {
         return found == true;
     }
 
+    public void gamemulti(ActionEvent event) throws Exception {
+
+        {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("userinterface/TicTacToemulti.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("");
+            stage.setScene(new Scene(root, 600, 570));
+            stage.show();
+
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }
+    }
 
     public void backbutton2(ActionEvent event) throws Exception {
 
