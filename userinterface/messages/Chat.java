@@ -16,20 +16,20 @@ public class Chat implements Event {
     }
 
     /**
-     * Execute as {@link Event} for a given {@link Client}
+     * Execute as {@link Event} for a given {@link Game}
      *
-     * @param client to manipulate
+     * @param game to manipulate
      */
     @Override
-    public void executeEvent(Game gamet) {
+    public void executeEvent(Game game) {
         //game.
         //client.resetCreatureStats(game);
     }
 
     /**
-     * Tests if this {@link Event}/{@link Command} is valid as {@link Event} for a given {@link Client}
+     * Tests if this {@link Event}/{@link Command} is valid as {@link Event} for a given {@link Game}
      *
-     * @param client {@link Client} to test
+     * @param game {@link Game} to test
      * @return returns true if valid else false
      */
     @Override

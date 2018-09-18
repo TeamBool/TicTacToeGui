@@ -11,18 +11,16 @@ public class Login implements Event {
     private int id;
     private String name;
 
-    /**
-     * @param gameID
-     */
+
     public Login(String name, int id) {
         this.name = name;
         this.id = id;
     }
 
     /**
-     * Execute as {@link Event} for a given {@link Client}
+     * Execute as {@link Event} for a given {@link Game}
      *
-     * @param client to manipulate
+     * @param game to manipulate
      */
     @Override
     public void executeEvent(Game game) {
@@ -36,9 +34,9 @@ public class Login implements Event {
     }
 
     /**
-     * Tests if this {@link Event}/{@link Command} is valid as {@link Event} for a given {@link Client}
+     * Tests if this {@link Event}/{@link Command} is valid as {@link Event} for a given {@link Game}
      *
-     * @param client {@link Client} to test
+     * @param game {@link Game} to test
      * @return returns true if valid else false
      */
     @Override

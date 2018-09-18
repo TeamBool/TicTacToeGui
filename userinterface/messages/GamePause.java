@@ -17,9 +17,9 @@ public class GamePause implements Event {
     }
 
     /**
-     * Execute as {@link Event} for a given {@link Client}
+     * Execute as {@link Event} for a given {@link Game}
      *
-     * @param client to manipulate
+     * @param game to manipulate
      */
     @Override
     public void executeEvent(Game game) {
@@ -29,7 +29,7 @@ public class GamePause implements Event {
     /**
      * Tests if this {@link Event}/{@link Command} is valid as {@link Event} for a given {@link Client}
      *
-     * @param client {@link Client} to test
+     * @param game {@link Game} to test
      * @return returns true if valid else false
      */
     @Override

@@ -3,9 +3,6 @@ package userinterface.messages;
 import userinterface.CommIds;
 import userinterface.CommandFactory;
 
-/**
- * Created by Team 14 on 12.09.2016.
- */
 public class CommandFactoryImpl implements CommandFactory<Command> {
 
     private CommIds commIds;

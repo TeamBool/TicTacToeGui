@@ -3,9 +3,7 @@ package userinterface.messages;
 import userinterface.EventFactory;
 
 
-/**
- * Created by DJ MacHack on 12.09.2016.
- */
+
 public class EventFactoryImpl implements EventFactory<Event> {
 
     public EventFactoryImpl() {
